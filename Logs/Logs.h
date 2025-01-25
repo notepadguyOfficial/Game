@@ -55,19 +55,14 @@ private:
 
 #define LOG_DEBUG(fmt, ...) \
     Logs::Print(fmt, LOG_LEVEL::DEBUG, __VA_ARGS__)
-
 #define LOG_INFO(fmt, ...) \
     Logs::Print(fmt, LOG_LEVEL::INFO, __VA_ARGS__)
-
 #define LOG_WARNING(fmt, ...) \
     Logs::Print(fmt, LOG_LEVEL::WARNING, __VA_ARGS__)
-
 #define LOG_ERROR(fmt, ...) \
     Logs::Print(fmt, LOG_LEVEL::ERROR, __VA_ARGS__)
-
 #define LOG_HTTP(fmt, ...) \
     Logs::Print(fmt, LOG_LEVEL::HTTP, __VA_ARGS__)
-
 #define LOG_DATABASE(fmt, ...) \
     Logs::Print(fmt, LOG_LEVEL::DATABASE, __VA_ARGS__)
 
