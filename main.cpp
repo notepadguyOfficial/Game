@@ -29,10 +29,34 @@ DATABASE LoadDBInfo(const std::string& _path) {
     DATABASE database;
 
     database.host = iniFile.GetValue(L"Database", L"Host");
+
+    if (database.host.empty()) {
+        LOG_ERROR("Host is missing in the configuration.");
+    }
+
     database.port = iniFile.GetIntValue(L"Database", L"Port");
+
+    if(database.port == 0) {
+        LOG_ERROR("Port is missing in the configuration.");
+    }
+
     database.schema = iniFile.GetValue(L"Database", L"Schema");
+
+    if (database.schema.empty()) {
+        LOG_ERROR("Schema is missing in the configuration.");
+    }
+
     database.username = iniFile.GetValue(L"Database", L"Username");
+
+    if (database.username.empty()) {
+        LOG_ERROR("Username is missing in the configuration.");
+    }
+
     database.password = iniFile.GetValue(L"Database", L"Password");
+
+    if (database.password.empty()) {
+        LOG_ERROR("Password is missing in the configuration.");
+    }
 
     return database;
 }
@@ -58,7 +82,7 @@ std::string GetPublicHost() {
         res = curl_easy_perform(curl);
         
         if (res != CURLE_OK) {
-            std::cerr << "Error getting Public Host: " << curl_easy_strerror(res) << std::endl;
+            LOG_ERROR("Error getting Public Host: %s", curl_easy_strerror(res));
             curl_easy_cleanup(curl);
             curl_global_cleanup();
             return "";
