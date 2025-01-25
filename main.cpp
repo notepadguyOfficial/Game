@@ -104,15 +104,21 @@ int main(int argc, const char* argv[]) {
 
     __try {
         adbg.patchDebuggingFunctions();
-        DATABASE *database = LoadDBInfo(cFile);
 
+        try {
+            DATABASE database = LoadDBInfo(cFile);
+        }
+        catch (const std::runtime_error& e) {
+            LOG_ERROR("An exception occurred: %s", e.what());
+        }
+        
         {
-            LOG_DATABASE("Local Host: %s", database->host.c_str());
+            LOG_DATABASE("Local Host: %s", database.host.c_str());
             LOG_DATABASE("Remote Host: %s", GetPublicHost());
-            LOG_DATABASE("Port: %d", database->port);
-            LOG_DATABASE("Schema: %s", database->schema.c_str());
-            //LOG_DATABASE("Username: %s", database->username.c_str());
-            //LOG_DATABASE("Password: %s", database->password.c_str());
+            LOG_DATABASE("Port: %d", database.port);
+            LOG_DATABASE("Schema: %s", database.schema.c_str());
+            //LOG_DATABASE("Username: %s", database.username.c_str());
+            //LOG_DATABASE("Password: %s", database.password.c_str());
         }
 
         //ToDo: check if the database connection is successful
